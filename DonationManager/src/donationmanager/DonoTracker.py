@@ -21,9 +21,10 @@ class DonationTracker():
 
     def _create_donos_json(self):
         try:
-            self.path_to_json.touch()
-        except FileExistsError:
-            print('Json file already exists')
+            with open(self.path_to_json, "a") as file:
+                file.write('{}')
+        except OSError as e:
+            print(f"Error creating json file {self.path_to_json}: {e}")
 
     def _request_donos(self):
         # request donoations from extralife, convert from html to json and return
@@ -31,7 +32,7 @@ class DonationTracker():
         dono_json = json.loads(dono_api_request.text)
         return dono_json
 
-    def _output_to_file(self):
+    def _output_to_file(self, json_data):
         # Check for an already existing json file, if none exists, create a new one
         try:
             # Checks for json file existance
@@ -41,12 +42,52 @@ class DonationTracker():
             print('File does not exist... creating json file')
             self._create_donos_json()
             with open(self.path_to_json, 'w') as file:
-                file.write(json.dumps(self._request_donos(), indent=4))
+                file.write(json.dumps(json_data, indent=4))
         else:
             # File exists
             with open(abs_path_to_json, 'w') as file:
-                file.write(json.dumps(self._request_donos(), indent=4))
+                file.write(json.dumps(json_data, indent=4))
 
     
-    # def get_new_donations(self):
+    def get_new_donations(self):
+        stored_donation_data = self._load_json_file()
+        new_donation_data = self._request_donos()
+
+        if len(new_donation_data) > len(stored_donation_data):
+            amount_of_new_donations = len(new_donation_data) - len (stored_donation_data)
+            new_donations_json = new_donation_data[0:amount_of_new_donations]
+            self._output_to_file(new_donation_data)
+            return [amount_of_new_donations, new_donations_json]
+        else:
+            return [None, None]
+            
+            
+    def _load_json_file(self, filepath=None, max_attempts=3):
+        attempts = 0
+
+        while attempts < max_attempts:
+            if filepath is not None:
+                try:
+                    with open(filepath, 'r') as json_file:
+                        stored_donation_data = json.load(json_file)
+                    return stored_donation_data
+                except FileNotFoundError:
+                    print('Json file not found; Creating new json file...')
+                    self._create_donos_json()
+                    attempts += 1
+            else:
+                try:
+                    with open(self.path_to_json, 'r') as json_file:
+                        stored_donation_data = json.load(json_file)
+                    return stored_donation_data    
+                except FileNotFoundError:
+                    print('Json file not found; Creating new json file...')
+                    self._create_donos_json()
+                    attempts += 1
+
+        if attempts == max_attempts:
+            raise RuntimeError('Could not load specified file and could not create new file')
+
+
+
 

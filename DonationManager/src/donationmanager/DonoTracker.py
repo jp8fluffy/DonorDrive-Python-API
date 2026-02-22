@@ -1,5 +1,4 @@
 from html_to_json import convert as convert_to_json
-from time import sleep
 from pathlib import Path
 import cloudscraper
 import json
@@ -29,7 +28,7 @@ class DonationTracker():
     def _request_donos(self):
         # request donoations from extralife, convert from html to json and return
         dono_api_request = self.scraper.get(self.url)
-        dono_json = convert_to_json(dono_api_request)
+        dono_json = json.loads(dono_api_request.text)
         return dono_json
 
     def _output_to_file(self):
@@ -42,10 +41,12 @@ class DonationTracker():
             print('File does not exist... creating json file')
             self._create_donos_json()
             with open(self.path_to_json, 'w') as file:
-                file.write(json.dumps(self._request_donos(), indent =2))
+                file.write(json.dumps(self._request_donos(), indent=4))
         else:
             # File exists
             with open(abs_path_to_json, 'w') as file:
-                file.write(json.dumps(self._request_donos(), indent=2))
+                file.write(json.dumps(self._request_donos(), indent=4))
 
- 
+    
+    # def get_new_donations(self):
+

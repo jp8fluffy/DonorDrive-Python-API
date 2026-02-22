@@ -1,4 +1,3 @@
-from html_to_json import convert as convert_to_json
 from pathlib import Path
 import cloudscraper
 import json

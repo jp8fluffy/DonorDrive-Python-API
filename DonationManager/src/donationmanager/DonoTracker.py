@@ -6,7 +6,6 @@ import json
 class DonationTracker():
     # Class for getting and storing donations 
     def __init__(self, url, filename='donos.json') -> None:
-        # Set url to get api requests and creates a new cloudscraper object (to get requests from cloudflare server) 
         self.url = url
         self.scraper = cloudscraper.create_scraper()
 
@@ -14,8 +13,6 @@ class DonationTracker():
         # Otherwise uses default path (local and named donos.json)
         self.filename = filename
         self.path_to_json = Path(filename)
-
-        # Check json file is named properly
         self._check_extension_of_json_file()
 
 
@@ -54,6 +51,7 @@ class DonationTracker():
         except OSError as e:
             print(f"Error creating json file {self.path_to_json}: {e}")
 
+
     def _request_donos(self):
         # request donoations from extralife, convert from html to json and return
         dono_api_request = self.scraper.get(self.url)
@@ -66,7 +64,6 @@ class DonationTracker():
             # Checks for json file existance
             abs_path_to_json = self.path_to_json.resolve(strict=True)
         except FileNotFoundError:
-            # File does not exist
             print('File does not exist... creating json file')
             self._create_donos_json()
             with open(self.path_to_json, 'w') as file:
@@ -76,9 +73,6 @@ class DonationTracker():
             with open(abs_path_to_json, 'w') as file:
                 file.write(json.dumps(json_data, indent=4))
 
-    
-           
-            
     def _load_json_file(self, filepath=None, max_attempts=3):
         attempts = 0
 
@@ -104,7 +98,3 @@ class DonationTracker():
 
         if attempts == max_attempts:
             raise RuntimeError('Could not load specified file and could not create new file')
-
-
-
-

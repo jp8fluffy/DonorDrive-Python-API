@@ -51,6 +51,18 @@ t_E4B21B29-DD36-DBF8-79D83C498A38FBB3.jpg?v=1771442940259', 'message': 'Test Don
 ```
 The method then writes the new data to the json file allowing the method to be used again.
 When no new donations are given, the method returns `[0, '{}']` of which `'{}'` is an empty json list
+
+# Example of Usage
+```python
+from donationmanager import DonoTracker
+
+url = 'https://www.extra-life.org/api/1.6/participants/minismeef/donations'
+donotracker = DonoTracker.DonationTracker(url)
+
+if __name__ == '__main__':
+    new_donations = donotracker.get_new_donations()
+    print(new_donations)
+```
     
 # Dependancies
 - Latest version of [Python3](https://www.python.org/downloads/)

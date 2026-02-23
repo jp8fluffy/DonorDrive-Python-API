@@ -15,8 +15,9 @@ class DonationTracker():
         self.filename = filename
         self.path_to_json = Path(filename)
 
-        # Create json file unless it already exsists
-        self._create_donos_json()
+        # Check json file is named properly
+        self._check_extension_of_json_file()
+
 
 
     # ----------- Public methods --------------------
@@ -38,10 +39,16 @@ class DonationTracker():
             return [amount_of_new_donations, empty_json]
 
     # ------------ Private Methods ------------------
+
+    def _check_extension_of_json_file(self):
+        expected_file_extension = 'json'
+        if self.path_to_json.suffix.lower() == expected_file_extension: # .suffix.lower() method from pathlib returns just the file extension 
+            raise TypeError(f'json file given ({self.filename}) is not of type \'.json\'. ')
+
  
     def _create_donos_json(self):
         try:
-            with open(self.path_to_json, "a") as file:
+            with open(self.path_to_json, "w") as file:
                 empty_json = '{}'
                 file.write(empty_json)
         except OSError as e:

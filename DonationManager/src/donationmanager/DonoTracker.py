@@ -41,8 +41,8 @@ class DonationTracker():
     # ------------ Private Methods ------------------
 
     def _check_extension_of_json_file(self):
-        expected_file_extension = 'json'
-        if self.path_to_json.suffix.lower() == expected_file_extension: # .suffix.lower() method from pathlib returns just the file extension 
+        expected_file_extension = '.json'
+        if self.path_to_json.suffix.lower() != expected_file_extension: # .suffix.lower() method from pathlib returns just the file extension 
             raise TypeError(f'json file given ({self.filename}) is not of type \'.json\'. ')
 
  

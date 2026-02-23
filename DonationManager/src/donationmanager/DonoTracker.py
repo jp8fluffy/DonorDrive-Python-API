@@ -18,6 +18,27 @@ class DonationTracker():
         # Create json file unless it already exsists
         self._create_donos_json()
 
+
+    # ----------- Public methods --------------------
+
+    def get_new_donations(self):
+        stored_donation_data = self._load_json_file()
+        new_donation_data = self._request_donos()
+        
+        amount_of_new_donations = len(new_donation_data) - len (stored_donation_data)
+
+        if amount_of_new_donations > 0:
+            new_donations_json = new_donation_data[0:amount_of_new_donations]
+            self._output_to_file(new_donation_data)
+            return [amount_of_new_donations, new_donations_json]
+        elif amount_of_new_donations < 0:
+            raise ValueError(f'New donations are smaller than stored donations ({amount_of_new_donations=})')
+        else:
+            empty_json = '{}'
+            return [amount_of_new_donations, empty_json]
+
+    # ------------ Private Methods ------------------
+ 
     def _create_donos_json(self):
         try:
             with open(self.path_to_json, "a") as file:
@@ -49,22 +70,7 @@ class DonationTracker():
                 file.write(json.dumps(json_data, indent=4))
 
     
-    def get_new_donations(self):
-        stored_donation_data = self._load_json_file()
-        new_donation_data = self._request_donos()
-        
-        amount_of_new_donations = len(new_donation_data) - len (stored_donation_data)
-
-        if amount_of_new_donations > 0:
-            new_donations_json = new_donation_data[0:amount_of_new_donations]
-            self._output_to_file(new_donation_data)
-            return [amount_of_new_donations, new_donations_json]
-        elif amount_of_new_donations < 0:
-            raise ValueError(f'New donations are smaller than stored donations ({amount_of_new_donations=})')
-        else:
-            empty_json = '{}'
-            return [amount_of_new_donations, empty_json]
-            
+           
             
     def _load_json_file(self, filepath=None, max_attempts=3):
         attempts = 0

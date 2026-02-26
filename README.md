@@ -29,7 +29,7 @@ python3 -m pip install -e .
 ```
  or by running 
  ```bash
- python3 -m pip install -e <PATH-TO-DOWNLOAD>/DonorDrive-Python-API/DonationManager/src
+ python3 -m pip install -e <PATH-TO-DOWNLOAD>/DonorDrive-Python-API/DonationManager/.
 ```
 This should install the package and it's dependencies into your python project
     

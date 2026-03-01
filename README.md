@@ -1,4 +1,6 @@
 # Donation Manager
+[![Latest Release](https://img.shields.io/github/v/release/jp8fluffy/DonorDrive-Python-API?style=flat-square&label=Release)](https://github.com/jp8fluffy/DonorDrive-Python-API/releases)
+
 DonationManager is a python package for interacting with the [Donor Drive API](https://github.com/DonorDrive/PublicAPI) to retrive donation information.
 The API is used with several non-profits (namely [Extralife](https://www.extra-life.org/home)) to track and output donation information from a participant's fundraising page.
 

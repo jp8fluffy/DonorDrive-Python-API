@@ -11,9 +11,12 @@ The API is used with several non-profits (namely [Extralife](https://www.extra-l
 >
 > Methods that make calls to the API currently include `get_new_donations()`, `_request_donos()`, and `_output_to_file()` (if no json data is explicitly given as it calls `_request_donos()`)
 
+### Installing module from pip
+It has finally been done! To install the module from pip, enter your virtual enviroment and then run the command 
+```bash
+pip install donationmanager
+```
 ### Building module from source
-> [!IMPORTANT] 
-> Currently building from source locally is the only method to use this package, until I get around to publishing the package to PyPi (if I ever do)
 
 Download the latest source code for this file from github using git 
 ```bash

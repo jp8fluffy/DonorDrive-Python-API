@@ -35,6 +35,15 @@ class DonationTracker:
             empty_json = "{}"
             return [amount_of_new_donations, empty_json]
 
+    def get_last_donation(self):
+        donation_data = self._request_donos()
+
+        if len(donation_data) > 0:
+            return donation_data[0]
+        empty_json = "{}"
+        print("No Donation data found")
+        return empty_json
+
     # ------------ Private Methods ------------------
 
     def _check_extension_of_json_file(self):

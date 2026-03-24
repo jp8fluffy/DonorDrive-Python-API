@@ -1,4 +1,5 @@
 from pathlib import Path
+import os.path
 import cloudscraper
 import json
 
@@ -35,13 +36,13 @@ class DonationTracker:
             empty_json = "{}"
             return [amount_of_new_donations, empty_json]
 
-    def get_last_donation(self):
-        donation_data = self._request_donos()
-
-        if len(donation_data) > 0:
+    def get_last_cached_donation(self):
+        if os.path.isfile(self.path_to_json):
+            donation_data = self._load_json_file()
             return donation_data[0]
+
+        print("No donation data cache found")
         empty_json = "{}"
-        print("No Donation data found")
         return empty_json
 
     # ------------ Private Methods ------------------
@@ -52,7 +53,7 @@ class DonationTracker:
             self.path_to_json.suffix.lower() != expected_file_extension
         ):  # .suffix.lower() method from pathlib returns just the file extension
             raise TypeError(
-                f"json file given ({self.filename}) is not of type '.json'. "
+                f'json file given ({self.filename}) is not of type ".json". '
             )
 
     def _create_donos_json(self):

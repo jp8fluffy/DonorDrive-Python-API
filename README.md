@@ -13,6 +13,7 @@ to track and output donation information from a participant's fundraising page.
 - [Installation](#installation)
   - [Install with Pip](#installing-module-from-pip)
   - [Build from source](#building-module-from-source)
+- [Usage](./DonationManager/README.md)
 - [Dependencies](#dependencies)
 
 ## Getting started

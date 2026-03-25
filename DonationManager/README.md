@@ -31,6 +31,26 @@ t_E4B21B29-DD36-DBF8-79D83C498A38FBB3.jpg?v=1771442940259', 'message': 'Test Don
 The method then writes the new data to the json file allowing the method to be used again.
 When no new donations are given, the method returns `[0, '{}']` of which `'{}'` is an empty json list
 
+### Using the get_last_cached_donation() method
+Just like the `get_new_donations()` method, the `get_last_cached_donation()` method returns JSON data. However, it does not return an array like `get_new_donations()` does. Instead it returns just raw ***cached*** donation data, and if there is none it returns a `'{}'`. The biggest difference between this method and `get_new_donations()` is that `get_last_cached_donation()` does ***NOT*** make an API request; Instead it checks if there is already a json file with the donation data and if there is, returns the latest donation. This was added as a way to get the "cached" donation data without making an API request. 
+
+An example of the output of this method is as follows:
+
+- If there is a file
+```python
+{'displayName': 'Johnpaul Shields', 'donorID': '79D83C498A38FBB3', 'links': {'recipient': 'https://www.extra-life.org/participants/566838', 'd
+onate': 'https://www.extra-life.org/participants/566838/donate'}, 'isRegFee': False, 'eventID': 562, 'createdDateUTC': '2026-02-20T21:14:29.92
+3Z', 'recipientName': 'Johnpaul Shields', 'recipientImageURL': 'https://donordrivecontent.com/extralife/images/$avatars$/constituent_E4B21B29-
+DD36-DBF8-79D83C498A38FBB3.jpg?v=1773862012806', 'message': 'Test Dono 2', 'participantID': 566838, 'amount': 1.0, 'donorIsRecipient': True, '
+avatarImageURL': 'https://donordrivecontent.com/extralife/images/$avatars$/constituent_E4B21B29-DD36-DBF8-79D83C498A38FBB3.jpg?v=1773862012806
+', 'donationID': '235890E3214394E3'}
+```
+
+- If there is no file
+```python
+{}
+```
+
 ## Example of Usage
 ```python
 from donationmanager import DonoTracker

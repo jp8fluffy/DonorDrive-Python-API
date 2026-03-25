@@ -52,7 +52,7 @@ avatarImageURL': 'https://donordrivecontent.com/extralife/images/$avatars$/const
 ```
 
 ### Using the get_cached_donation() method
-Just like the `get_cached_donations()` method, the `get_cached_donation()` method returns JSON data (not in an array) and __***doesn't***__ make an API request. It takes in one argument (an integer) `donation_index` and returns the donation in the cached data at that index. After a recent push, `get_last_cached_donation()` now uses this method at `donation_index` of 0. If the index is not an integer or is out of bounds, the method gives an error in the standard output and returns an empty json `'{}'`
+Just like the `get_last_cached_donations()` method, the `get_cached_donation()` method returns JSON data (not in an array) and __***doesn't***__ make an API request. It takes in one argument (an integer) `donation_index` and returns the donation in the cached data at that index. After a recent push, `get_last_cached_donation()` now uses this method at `donation_index` of 0. If the index is not an integer or is out of bounds, the method gives an error in the standard output and returns an empty json `'{}'`
 
 
 ## Example of Usage

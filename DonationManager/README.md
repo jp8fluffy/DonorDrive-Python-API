@@ -1,4 +1,4 @@
-- [Back to Main page](../DonationManager/README.md)
+- [Back to Main page](../README.md)
 
 # Usage
 

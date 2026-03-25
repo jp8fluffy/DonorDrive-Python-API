@@ -32,7 +32,7 @@ The method then writes the new data to the json file allowing the method to be u
 When no new donations are given, the method returns `[0, '{}']` of which `'{}'` is an empty json list
 
 ### Using the get_last_cached_donation() method
-Just like the `get_new_donations()` method, the `get_last_cached_donation()` method returns JSON data. However, it does not return an array like `get_new_donations()` does. Instead it returns just raw ***cached*** donation data, and if there is none it returns a `'{}'`. The biggest difference between this method and `get_new_donations()` is that `get_last_cached_donation()` does ***NOT*** make an API request; Instead it checks if there is already a json file with the donation data and if there is, returns the latest donation. This was added as a way to get the "cached" donation data without making an API request. 
+Just like the `get_new_donations()` method, the `get_last_cached_donation()` method returns JSON data. However, it does not return an array like `get_new_donations()` does. Instead it returns just raw ***cached*** donation data, and if there is none it returns a `'{}'`. The biggest difference between this method and `get_new_donations()` is that `get_last_cached_donation()` does __***NOT***__ make an API request; Instead it checks if there is already a json file with the donation data and if there is, returns the latest donation. This was added as a way to get the "cached" donation data without making an API request. 
 
 An example of the output of this method is as follows:
 
@@ -50,6 +50,10 @@ avatarImageURL': 'https://donordrivecontent.com/extralife/images/$avatars$/const
 ```python
 {}
 ```
+
+### Using the get_cached_donation() method
+Just like the `get_cached_donations()` method, the `get_cached_donation()` method returns JSON data (not in an array) and __***doesn't***__ make an API request. It takes in one argument (an integer) `donation_index` and returns the donation in the cached data at that index. After a recent push, `get_last_cached_donation()` now uses this method at `donation_index` of 0. If the index is not an integer or is out of bounds, the method gives an error in the standard output and returns an empty json `'{}'`
+
 
 ## Example of Usage
 ```python

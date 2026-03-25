@@ -37,11 +37,17 @@ class DonationTracker:
             return [amount_of_new_donations, empty_json]
 
     def get_last_cached_donation(self):
-        if os.path.isfile(self.path_to_json):
-            donation_data = self._load_json_file()
-            return donation_data[0]
+        return self.get_cached_donation(0)
 
-        print("No donation data cache found")
+    def get_cached_donation(self, donation_index):
+        if os.path.isfile(self.path_to_json):
+            try:
+                donation_data = self._load_json_file()
+                return donation_data[donation_index]
+            except IndexError:
+                pass
+
+        print("Could not get donations: Index out of range or file does not exist")
         empty_json = "{}"
         return empty_json
 
